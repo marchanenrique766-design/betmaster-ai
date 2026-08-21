@@ -2,6 +2,7 @@
 """BetMaster AI local server. Keeps the football-data.org token on the server."""
 import json
 import os
+from datetime import date, timedelta
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -10,6 +11,10 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).parent
 API_BASE = "https://api.football-data.org/v4"
 TOKEN = os.environ.get("FOOTBALL_DATA_API_KEY", "")
+
+# Ventana de días hacia atrás para consultar partidos terminados (rachas BTTS/Over).
+FINISHED_WINDOW_DAYS = 150
+
 
 class AppHandler(SimpleHTTPRequestHandler):
     def _json(self, status, data):
@@ -55,7 +60,24 @@ class AppHandler(SimpleHTTPRequestHandler):
             status, data = self._football_data(f"/competitions/{code}/matches?status=SCHEDULED")
             self._json(status, data)
             return
+        # NUEVO: partidos terminados de los ultimos FINISHED_WINDOW_DAYS dias.
+        # Con esto la app calcula rachas reales de BTTS y Over 2.5 por equipo.
+        if self.path.startswith("/api/finished/"):
+            code = self.path.rsplit("/", 1)[-1].upper()
+            if not code.replace("-", "").isalnum():
+                self._json(400, {"ok": False, "error": "Código de competición inválido."})
+                return
+            today = date.today()
+            date_from = today - timedelta(days=FINISHED_WINDOW_DAYS)
+            endpoint = (
+                f"/competitions/{code}/matches"
+                f"?status=FINISHED&dateFrom={date_from.isoformat()}&dateTo={today.isoformat()}"
+            )
+            status, data = self._football_data(endpoint)
+            self._json(status, data)
+            return
         super().do_GET()
+
 
 if __name__ == "__main__":
     os.chdir(ROOT)
