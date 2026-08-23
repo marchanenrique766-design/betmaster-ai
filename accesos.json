@@ -1,0 +1,45 @@
+{
+ "GOL-DEMO-2026": {
+  "devices": [
+   "test-dev",
+   "t1"
+  ],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-8F4K-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-7QX2-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-3MN9-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-5VB8-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-9JT4-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-2LP6-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ },
+ "GOL-6HK1-2026": {
+  "devices": [],
+  "max": 1,
+  "until": "2026-09-30"
+ }
+}
