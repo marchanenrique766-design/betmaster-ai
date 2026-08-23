@@ -1,0 +1,127 @@
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel Simple · GOAL INSIGHT AI</title>
+<style>
+:root{--g:#3dffa2;--b:#3aa0ff;--line:#24406b;--txt:#eef4ff;--mut:#8da2be;--red:#f4777e;--gold:#ffd070}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 100% 0,#123a6e,transparent 30%),#02060f;color:var(--txt);font-family:Inter,system-ui,sans-serif;padding:18px 12px 40px}
+.wrap{max-width:480px;margin:auto}
+h1{font-size:20px;margin:0;text-align:center}.h1 i{font-style:normal;color:var(--g)}
+.sub{text-align:center;color:var(--mut);font-size:10px;letter-spacing:2px;font-weight:900;margin:6px 0 18px}
+.card{background:#0d1729;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.big{width:100%;border:0;border-radius:16px;padding:20px 14px;font-weight:900;cursor:pointer;font-family:inherit;font-size:16px;letter-spacing:.5px;margin-bottom:10px}
+.big small{display:block;font-size:10px;font-weight:700;opacity:.8;margin-top:3px}
+.sell{background:linear-gradient(135deg,#3dffa2,#0f9d63);color:#03130a}
+.gift{background:linear-gradient(135deg,#3aa0ff,#1d5fd6);color:#fff}
+.life{background:linear-gradient(135deg,#ffd070,#e6a93d);color:#241a02}
+label{display:block;color:var(--mut);font-size:10px;font-weight:900;letter-spacing:.8px;margin:10px 0 6px;text-transform:uppercase}
+input{width:100%;border:1px solid var(--line);background:#0a1424;color:var(--txt);border-radius:12px;padding:14px;font-size:16px;outline:0;font-family:inherit;text-align:center}
+input:focus{border-color:var(--g);box-shadow:0 0 0 3px #3dffa233}
+.btn{width:100%;border:0;border-radius:12px;padding:14px;font-weight:900;cursor:pointer;font-family:inherit;font-size:14px}
+.btnG{background:linear-gradient(135deg,#3dffa2,#0f9d63);color:#03130a}
+.result{border:1px solid #1e5c50;background:#0a2620;border-radius:16px;padding:18px;text-align:center;margin-top:14px}
+.codeTxt{font-size:26px;font-weight:900;color:var(--g);letter-spacing:2px;margin:8px 0;word-break:break-all}
+.until{font-size:12px;color:var(--gold);font-weight:800}
+.wa{background:#0a2e20;color:var(--g);border:1px solid #1e5c50;width:100%;margin-top:10px;padding:14px;font-size:14px}
+.cp{background:#152748;color:var(--b);border:1px solid var(--line);width:100%;margin-top:8px;padding:12px;font-size:12px}
+.row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1b3050;padding:12px 0;gap:8px}
+.code{font-weight:900;font-size:15px;color:var(--g);letter-spacing:1px}
+.meta{font-size:10px;color:var(--mut)}
+.until2{color:var(--gold);font-weight:800}
+.mini{border:0;border-radius:9px;padding:8px 10px;font-weight:900;cursor:pointer;font-size:10px;font-family:inherit}
+.mRen{background:#152748;color:var(--b);border:1px solid var(--line)}
+.mDel{background:#3b1a1f;color:var(--red);border:1px solid #61333c}
+.hidden{display:none}
+.err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px;font-weight:700;text-align:center}
+.help{font-size:11px;color:var(--mut);line-height:1.7;text-align:center;margin-top:6px}
+.help b{color:var(--txt)}
+#verMas{background:none;border:0;color:var(--b);font-weight:900;font-size:12px;cursor:pointer;width:100%;padding:10px;font-family:inherit}
+</style></head><body>
+<div class="wrap">
+<h1>📊 Panel <i>Simple</i> · GOAL INSIGHT</h1>
+<div class="sub">TOCA UN BOTÓN — EL CÓDIGO SE CREA SOLO</div>
+
+<div class="card" id="login">
+  <label>Clave de administrador</label>
+  <input id="pass" type="password" placeholder="betmaster2026" autocomplete="off">
+  <button class="btn btnG" id="enter" style="margin-top:12px">🔓 ENTRAR</button>
+  <div class="err" id="err1"></div>
+  <div class="help">Clave por defecto: <b>betmaster2026</b><br>Si la cambiaste en Render (ADMIN_KEY), usa esa.</div>
+</div>
+
+<div id="panel" class="hidden">
+  <div class="card">
+    <button class="big sell" id="b30">💰 VENDER 30 DÍAS<small>Toca cuando te paguen $10 → sale el código</small></button>
+    <button class="big gift" id="b3">🎁 REGALAR 3 DÍAS DE PRUEBA<small>Para que prueben y después compren</small></button>
+    <button class="big life" id="bLife">👑 VENDER VITALICIO<small>Pago único — cobra $30 o más</small></button>
+    <div id="result" class="result hidden">
+      <div style="font-size:11px;color:#8da2be;font-weight:900">✅ CÓDIGO CREADO — MÁNDASELO A TU CLIENTE</div>
+      <div class="codeTxt" id="code"></div>
+      <div class="until" id="until"></div>
+      <button class="wa" id="wa">📲 ENVIAR POR WHATSAPP</button>
+      <button class="cp" id="cp">📋 Copiar solo el código</button>
+      <div class="help" style="margin-top:10px">Guarda abajo el link de tu app (se recuerda una vez)</div>
+    </div>
+    <div class="err" id="err2"></div>
+  </div>
+
+  <div class="card">
+    <label>El link de tu app (para el mensaje de WhatsApp)</label>
+    <input id="appUrl" placeholder="https://betmaster-ai-1.onrender.com" style="text-align:left;font-size:13px">
+    <button id="verMas">▾ Ver mis códigos vendidos</button>
+    <div id="list" class="hidden"></div>
+  </div>
+
+  <div class="card">
+    <div class="help" style="text-align:left">
+      <b>Cómo vender en 3 toques:</b><br>
+      1️⃣ Te pagan → tocas 💰 VENDER 30 DÍAS<br>
+      2️⃣ Tocas 📲 ENVIAR POR WHATSAPP → eliges el chat<br>
+      3️⃣ Tu cliente pone el código en la app → entra 🎉<br><br>
+      ♻️ <b>Renovación:</b> en "mis códigos" → botón Renovar<br>
+      🗑️ <b>Cliente que no paga:</b> botón Borrar
+    </div>
+  </div>
+</div>
+</div>
+<script>
+var $=function(s){return document.querySelector(s)};
+var KEY=localStorage.getItem('gi_admin')||'';
+function api(path,body,cb){
+ var o={method:body?'POST':'GET',headers:{'X-Admin':KEY}};
+ if(body){o.headers['Content-Type']='application/json';o.body=JSON.stringify(body)}
+ fetch(path,o).then(function(r){return r.json()}).then(cb).catch(function(){cb({ok:false,error:'Sin conexión'})})}
+function showList(){
+ api('/api/admin/list',null,function(d){
+  var el=$('#list');
+  if(!d.ok){el.innerHTML='<div class="err">'+d.error+'</div>';return}
+  var ks=Object.keys(d.codes||{}).sort();
+  if(!ks.length){el.innerHTML='<div class="help">Aún no vendes nada — ¡tu primer código te espera! 💰</div>';return}
+  el.innerHTML=ks.map(function(c){var i=d.codes[c];
+   return '<div class="row"><div><div class="code">'+c+'</div><div class="meta">'+i.devices+'/'+i.max+' equipos · <span class="until2">vence '+i.until+'</span></div></div>'+
+   '<div><button class="mini mRen" data-r="'+c+'">Renovar 30d</button> <button class="mini mDel" data-d="'+c+'">🗑</button></div></div>'}).join('');
+  el.querySelectorAll('[data-r]').forEach(function(b){b.onclick=function(){api('/api/admin/renew',{code:b.getAttribute('data-r'),days:30},showList)}});
+  el.querySelectorAll('[data-d]').forEach(function(b){b.onclick=function(){if(confirm('¿Bloquear este código?'))api('/api/admin/delete',{code:b.getAttribute('data-d')},showList)}})})}
+function crear(days){
+ api('/api/admin/create',{days:days},function(d){
+  if(d.ok){$('#result').classList.remove('hidden');$('#code').textContent=d.code;$('#until').textContent='Vigente hasta: '+d.until;$('#err2').textContent='';showList()}
+  else $('#err2').textContent=d.error||'Error'})}
+$('#enter').onclick=function(){
+ KEY=$('#pass').value;localStorage.setItem('gi_admin',KEY);
+ api('/api/admin/list',null,function(d){
+  if(d.ok){$('#login').classList.add('hidden');$('#panel').classList.remove('hidden');showList()}
+  else $('#err1').textContent='Clave incorrecta — prueba: betmaster2026'})};
+$('#pass').addEventListener('keydown',function(e){if(e.key==='Enter')$('#enter').click()});
+$('#b30').onclick=function(){crear(30)};
+$('#b3').onclick=function(){crear(3)};
+$('#bLife').onclick=function(){crear(9999)};
+$('#appUrl').value=localStorage.getItem('gi_url')||'';
+$('#appUrl').addEventListener('input',function(){localStorage.setItem('gi_url',$('#appUrl').value)});
+$('#cp').onclick=function(){var t=$('#code').textContent;
+ if(navigator.clipboard)navigator.clipboard.writeText(t);
+ else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}};
+$('#wa').onclick=function(){
+ var url=$('#appUrl').value||'https://betmaster-ai-1.onrender.com';
+ var code=$('#code').textContent;
+ var msg='¡Hola! 🤖⚽ Tu acceso a GOAL INSIGHT AI está listo:%0A%0A🔗 Link: '+url+'%0A🔑 Tu código: '+code+'%0A📅 Vigente hasta: '+$('#until').textContent.replace('Vigente hasta: ','')+'%0A%0APégalo en la pantalla de acceso y ¡a analizar! 📊%0A⚠️ Recuerda: estadística no es garantía. Juega responsable.';
+ window.open('https://wa.me/?text='+msg,'_blank')};
+</script></body></html>
